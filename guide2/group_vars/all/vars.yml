@@ -1,0 +1,17 @@
+# Shared Swap database settings
+app_db_name: swap
+app_db_user: teste
+
+# variavel encriptada pelo vault [ --ask-vault-pass ]
+# -> vault password:12345
+# tb está no ficheiro .vault_pass.txt [ --vault-password-file ]
+app_db_password: "{{ vault_app_db_password }}"
+
+# bind ip for DB - Using Inventory file content
+app_db_ip: "{{ groups['db'][0] }}"
+
+# client ip - Using Inventory file content
+app_user_ip: "{{ groups['app'][0] }}"
+
+# var de seed_app
+seed: false

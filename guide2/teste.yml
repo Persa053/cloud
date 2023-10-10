@@ -1,0 +1,5 @@
+- name: Install swap
+  hosts: app
+
+  roles:
+    - seed_app

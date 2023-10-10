@@ -1,0 +1,15 @@
+---
+- name: Install MySQL
+  become: yes
+  hosts: db
+
+  roles:
+    - db
+
+- name: Install swap
+  hosts: app
+
+  roles:
+    - app
+    - seed_app
+

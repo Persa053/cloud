@@ -1,0 +1,5 @@
+- name: seed db
+  shell: php artisan db:seed
+  args:
+    chdir: /home/{{ ansible_user_id }}/swap
+  when: seed
