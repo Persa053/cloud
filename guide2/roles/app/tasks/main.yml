@@ -8,6 +8,7 @@
   become: yes
   apt:
     update_cache: yes
+    u+grade: no
 
 - name: Dependencies
   become: yes
@@ -47,7 +48,12 @@
   args:
     chdir: /home/{{ ansible_user_id }}/swap
 
-- name: migrate db
+#The killall should be improved to a safer command
+- name: Clean previous app servers
+  shell: killall -9 php7.4 && killall -9 php
+  ignore_errors: yes
+
+- name: Start app
   shell: nohup php artisan serve --host=0.0.0.0 > app_out.log 2>&1 &
   args:
     chdir: /home/{{ ansible_user_id }}/swap
