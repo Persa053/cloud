@@ -22,7 +22,7 @@ WORKDIR /swap
 RUN composer install
 RUN npm install
 COPY .env.example .env
-RUN sed -i s/SEARCH_REGEX/REPLACEMENT/g .env
+RUN sed -i s/^DB_HOST=127.0.0.1$/DB_HOST=127.0.0.1/g .env
 RUN php artisan key:generate
 CMD [ "php" , "artisan", "serve", "--host=0.0.0.0"]
 
