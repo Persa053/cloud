@@ -23,7 +23,12 @@ RUN composer install
 RUN npm install
 COPY .env.example .env
 RUN sed -i s/^DB_HOST=127.0.0.1$/DB_HOST=127.0.0.1/g .env
+RUN sed -i s/^DB_DATABASE=homestead$/DB_DATABASE=swap/g .env
+RUN sed -i s/^DB_USERNAME=homestead$/DB_USERNAME=swap/g .env
+RUN sed -i s/^DB_PASSWORD=secret$/DB_PASSWORD=12345/g .env
 RUN php artisan key:generate
 CMD [ "php" , "artisan", "serve", "--host=0.0.0.0"]
 
 
+# fazer var de ambiente para o IP
+# ver o que fazer pra não ficar estático
