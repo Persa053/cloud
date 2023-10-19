@@ -24,7 +24,7 @@ WORKDIR /swap
 RUN cp .env.example .env
 RUN composer install
 RUN npm install
-RUN sed -i s/^DB_HOST=127.0.0.1$/DB_HOST=${sql}/g .env
+RUN sed -i s/^DB_HOST=127.0.0.1$/DB_HOST=172.18.0.2/g .env
 RUN sed -i s/^DB_DATABASE=homestead$/DB_DATABASE=swap/g .env
 RUN sed -i s/^DB_USERNAME=homestead$/DB_USERNAME=swap/g .env
 RUN sed -i s/^DB_PASSWORD=secret$/DB_PASSWORD=12345/g .env
