@@ -5,7 +5,7 @@ ENV db_host=db \
     db_database=swap \
     db_pass=12345 \
     db_user=user \
-    SEED=false
+    SEED=true
 
 RUN apt-get update && \
     apt-get install -y software-properties-common 
@@ -43,9 +43,8 @@ EXPOSE 8000
 CMD ./run_script.sh
 
 
-# fazer var de ambiente para o IP
-# ver o que fazer pra não ficar estático
-# fazer seed opcional
+# falta fazer a cena do Redis
+# Fazer o playbook ansible que vai ser igual ao trabalho ig
 # ---
 # COMANDO PRA CRIAR A REDE:
 # docker network create test
