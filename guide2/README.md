@@ -5,8 +5,8 @@
 ansible-playbook -i <FICHEIRO DE HOSTS>
                  -u <USERNAME>
                  [--ask-vault-pass <PASSWORD> |
-                 --vaul-password-file <FICHEIRO>]
-                 <NOME DO PLAYBOOK> 
+                 --vault-password-file <FICHEIRO>]
+                 <NOME DO PLAYBOOK>
 ```
 **Nota:** Ao usar o vagrant o username vai ser "vagrant"
 ## Ansible Vault

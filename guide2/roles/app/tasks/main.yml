@@ -8,7 +8,7 @@
   become: yes
   apt:
     update_cache: yes
-    u+grade: no
+    upgrade: no
 
 - name: Dependencies
   become: yes
