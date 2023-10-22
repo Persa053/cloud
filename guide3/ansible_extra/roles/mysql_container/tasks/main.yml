@@ -1,0 +1,17 @@
+- name: Create a network
+  community.docker.docker_network:
+    name: "{{ docker_network_name }}"
+
+- name: Create mysql container
+  community.docker.docker_container:
+    name: "{{ mysql_container_name }}"
+    image: mysql:latest
+    networks:
+      - name: "{{ docker_network_name }}"
+    ports:
+      "3306:3306"
+    env:
+        MYSQL_USER="{{ app_db_user }}"
+        MYSQL_PASSWORD="{{ app_db_password }}"
+        MYSQL_DATABASE="{{ app_db_name }}"
+        MYSQL_ALLOW_EMPTY_PASSWORD=true

@@ -1,11 +1,11 @@
 FROM ubuntu:20.04
 
 # defaut vars
-ENV db_host=db \
-    db_database=swap \
-    db_pass=12345 \
-    db_user=user \
-    SEED=true
+ENV db_host={{mysql_container_name}} \
+    db_database={{app_db_name}} \
+    db_pass={{app_db_password}} \
+    db_user={{app_db_user}} \
+    SEED={{seed}}
 
 RUN apt-get update && \
     apt-get install -y software-properties-common
@@ -27,7 +27,6 @@ RUN apt install -y php7.4 \
     npm
 RUN git clone https://github.com/Hackathonners/swap.git
 WORKDIR /swap
-#COPY .env.example .env
 RUN cp .env.example .env
 RUN composer install
 RUN npm install
@@ -41,15 +40,3 @@ RUN chmod u+x run_script.sh
 EXPOSE 8000
 
 CMD ./run_script.sh
-
-
-# falta fazer a cena do Redis
-# ---
-# COMANDO PRA CRIAR A REDE:
-# docker network create test
-# COMANDO PRA CORRER CONTAINER COM MYSQL:
-# docker run --name db --net test -p 3306:3306 -d -e MYSQL_USER=user -e MYSQL_PASSWORD=12345 -e MYSQL_DATABASE=swap -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql:latest
-# COMANDO PRA FAZER BUILD
-# docker build . -t swap
-# COMANDO PRA CORRER CONTAINER COM SWAP:
-# docker run --net test -p 8000:8000 --name swap swap

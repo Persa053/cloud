@@ -1,0 +1,47 @@
+---
+- name: Uninstall all conflicting packages
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ conflicting_packages }}"
+
+- name: Update
+  apt:
+    update_cache: yes
+    upgrade: no
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ dependency_packages }}"
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: Update
+  apt:
+    update_cache: yes
+    upgrade: no
+
+- name: Install docker packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ docker_packages }}"
+
+
+- name: Permisions
+  shell: "usermod -aG docker $USER"
+
+- name: Ensure group "somegroup" exists
+  ansible.builtin.group:
+    name: docker
+    state: present

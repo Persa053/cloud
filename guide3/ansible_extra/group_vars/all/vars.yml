@@ -1,0 +1,15 @@
+# Shared Swap database settings
+app_db_name: swap
+app_db_user: teste
+
+mysql_container_name: swap_db
+swap_image_name: swap
+swap_container_name: swap
+docker_network_name: test
+# variavel encriptada pelo vault [ --ask-vault-pass ]
+# -> vault password:12345
+# tb está no ficheiro .vault_pass.txt [ --vault-password-file ]
+app_db_password: "{{ vault_app_db_password }}"
+
+# var de seed_app
+seed: false
