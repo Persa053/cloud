@@ -1,19 +1,21 @@
 - name: Template a dockerfile.example to Dockerfile
   template:
     src: dockerfile.example
-    dest: ~/Dockerfile
+    dest: Dockerfile
 
 - name: Copy script.sh to remote
   copy:
     src: run_script.sh
-    dest: ~/script.sh
+    dest: run_script.sh
 
+#- name: Build swap image
+#  docker_image:
+#    name: "{{ swap_image_name }}"
+#    build:
+#      path: /home/vagrant/
+#    source: build
 - name: Build swap image
-  docker_image:
-    name: "{{ swap_image_name }}"
-    build:
-      path: /home/vagrant/
-    source: build
+  command: docker build . -t "{{ swap_image_name }}"
 
 - name: Create mysql container
   community.docker.docker_container:
