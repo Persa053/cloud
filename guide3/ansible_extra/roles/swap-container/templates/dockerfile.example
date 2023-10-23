@@ -1,10 +1,10 @@
 FROM ubuntu:20.04
 
 # defaut vars
-ENV db_host={{mysql_container_name}} \
-    db_database={{app_db_name}} \
-    db_pass={{app_db_password}} \
-    db_user={{app_db_user}} \
+ENV DB_HOST={{mysql_container_name}} \
+    DB_DATABASE={{app_db_name}} \
+    DB_PASS={{app_db_password}} \
+    DB_USER={{app_db_user}} \
     SEED={{seed}}
 
 RUN apt-get update && \
@@ -26,15 +26,15 @@ RUN apt install -y php7.4 \
     composer \
     npm
 # wtfffffffffffffffffffffffffffffffffffffffffffffffff pq é que tem de ter o -4?????
-RUN git clone https://github.com/Hackathonners/swap.git -4 
+RUN git clone https://github.com/Hackathonners/swap.git -4
 WORKDIR /swap
 RUN cp .env.example .env
 RUN composer install
 RUN npm install
-RUN sed -i s/^DB_HOST=127.0.0.1$/DB_HOST=${db_host}/g .env
-RUN sed -i s/^DB_DATABASE=homestead$/DB_DATABASE=${db_database}/g .env
-RUN sed -i s/^DB_USERNAME=homestead$/DB_USERNAME=${db_user}/g .env
-RUN sed -i s/^DB_PASSWORD=secret$/DB_PASSWORD=${db_pass}/g .env
+RUN sed -i s/^DB_HOST=127.0.0.1$/DB_HOST=${DB_HOST}/g .env
+RUN sed -i s/^DB_DATABASE=homestead$/DB_DATABASE=${DB_DATABASE}/g .env
+RUN sed -i s/^DB_USERNAME=homestead$/DB_USERNAME=${DB_USER}/g .env
+RUN sed -i s/^DB_PASSWORD=secret$/DB_PASSWORD=${DB_PASS}/g .env
 RUN php artisan key:generate
 COPY run_script.sh run_script.sh
 RUN chmod u+x run_script.sh

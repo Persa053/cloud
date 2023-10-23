@@ -1,10 +1,10 @@
 FROM ubuntu:20.04
 
 # defaut vars
-ENV db_host=db \
-    db_database=swap \
-    db_pass=12345 \
-    db_user=user \
+ENV BD_HOST=db \
+    DB_DATABASE=swap \
+    DB_PASS=12345 \
+    DB_USER=user \
     SEED=true
 
 RUN apt-get update && \
