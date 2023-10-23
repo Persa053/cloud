@@ -1,9 +1,14 @@
 ---
-- name: Install docker and deploy containers
+- name: Install docker
   become: yes
   hosts: vm
 
   roles:
-    #- install_docker
-    #- mysql_container
+    - install_docker
+
+- name: Deploy containers
+  hosts: vm
+
+  roles:
+    - mysql_container
     - swap-container

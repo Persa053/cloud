@@ -37,10 +37,14 @@
     state: latest
   loop: "{{ docker_packages }}"
 
-- name: Return motd to registered var
-  ansible.builtin.command: "usermod -aG docker $USER"
+- name: Add the user vagrant to group docker
+  user:
+    name: "{{ ansible_ssh_user }}"
+    group: docker
+    state: present
+    append: true
 
-- name: Ensure group "somegroup" exists
+- name: Ensure group docker exists
   ansible.builtin.group:
     name: docker
     state: present
