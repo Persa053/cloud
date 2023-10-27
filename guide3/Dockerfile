@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 # defaut vars
-ENV BD_HOST=db \
+ENV DB_HOST=db \
     DB_DATABASE=swap \
     DB_PASS=12345 \
     DB_USER=user \
