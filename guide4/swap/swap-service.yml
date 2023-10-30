@@ -1,0 +1,20 @@
+---
+# Service for exposing MySQL
+apiVersion: v1
+kind: Service
+metadata:
+  name: swap-service # logical name of the service, which will also become the DNS name of the service when it is created.
+  labels:
+    app: swap
+    tier: app
+spec:
+  type: NodePort # TODO <----------------------------------
+  selector:
+    app: swap
+  ports:
+    - targetPort: 8000 # port that containers are listening on
+      port: 8000 # port number exposed internally in the cluster
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
