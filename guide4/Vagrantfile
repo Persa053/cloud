@@ -15,8 +15,8 @@ Vagrant.configure("2") do |config|
       v.memory = 2048
       v.cpus = 2
     end
-    master.vm.network :private_network, ip: "#{IP_RANGE}.100"
-    master.vm.provision :shell, privileged: false, inline: $provision_master_node, :args => ["#{IP_RANGE}.100"]
+    master.vm.network :private_network, ip: "#{IP_RANGE}.200"
+    master.vm.provision :shell, privileged: false, inline: $provision_master_node, :args => ["#{IP_RANGE}.200"]
   end
 
   (1..Number_Workers).each do |i|

@@ -24,13 +24,27 @@ spec:
         image: mysql:latest
         env: # The variables below could be set on a ConfigMap object
         - name: MYSQL_ALLOW_EMPTY_PASSWORD
-          value: "true"
+          valueFrom:
+            configMapKeyRef:
+              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+              name: config
+              # Specify the key associated with the value
+              key: mysql_allow_empty_password
         - name: MYSQL_DATABASE
-          value: swap
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_database
         - name: MYSQL_USER
-          value: swapuser
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_user
         - name: MYSQL_PASSWORD
-          value: "123456" # Use Secret object in real usage
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_password
         ports:
         - containerPort: 3306
         volumeMounts:

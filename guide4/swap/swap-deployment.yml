@@ -25,13 +25,22 @@ spec:
         env: # The variables below could be set on a ConfigMap object
         - name: DB_HOST
           value: mysql-service
-        - name: DB_DATABASE
-          value: "swap"
-        - name: DB_USERNAME
-          value: "swapuser"
-        - name: DB_PASSWORD
-          value: "123456"
         - name: MIGRATE
           value: "true"
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_database
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_user
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_password
         ports:
         - containerPort: 8000
