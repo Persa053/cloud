@@ -7,7 +7,6 @@ data:
   mysql_allow_empty_password: "true"
   mysql_database: swap
   mysql_user: swapuser
-  mysql_password: "123456" # Use Secret object in real usage
 
-# kubectl apply -f config
+# kubectl apply -f config.yml
 # kubectl exec -it mysql-deployment-....... -- mysqladmin --host=0.0.0.0 --user=swapuser --password=123456 status

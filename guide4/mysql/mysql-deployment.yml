@@ -42,9 +42,9 @@ spec:
               key: mysql_user
         - name: MYSQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
-              name: config
-              key: mysql_password
+            secretKeyRef:
+              name: mysql-password
+              key: pass
         ports:
         - containerPort: 3306
         volumeMounts:
