@@ -1,0 +1,47 @@
+---
+# Deployment for MySQL
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: {{ deploy_name }}
+  labels:
+    app: swap
+    tier: app
+spec:
+  selector:
+    matchLabels:
+      app: swap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: swap
+        tier: app
+    spec:
+      containers:
+      - name: swap
+        image: ascnuminho/swap
+        env: # The variables below could be set on a ConfigMap object
+        - name: DB_HOST
+          value: {{ db_service }}
+        - name: MIGRATE
+          value: "true"
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_database
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ secret_name }}
+              key: pass
+        ports:
+        - containerPort: 8000

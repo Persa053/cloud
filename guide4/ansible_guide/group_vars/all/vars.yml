@@ -1,0 +1,14 @@
+# Shared Swap database settings
+app_db_name: swap
+app_db_user: swapuser
+db_allow_empty_password: "true"
+db_service: mysql-service
+# variavel encriptada pelo vault [ --ask-vault-pass ]
+# -> vault password:12345
+# tb está no ficheiro .vault_pass.txt [ --vault-password-file ]
+app_db_password: "{{ vault_app_db_password }}"
+# Secret Name
+secret_name: mysql-password
+
+# var de seed_app
+seed: false

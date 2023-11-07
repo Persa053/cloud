@@ -1,0 +1,57 @@
+---
+# Deployment for MySQL
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ deploy_name }}
+  namespace: default
+  labels:
+    app: mysql
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+        tier: database
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        env: # The variables below could be set on a ConfigMap object
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+              name: config
+              # Specify the key associated with the value
+              key: mysql_allow_empty_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_database
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ secret_name }}
+              key: pass
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

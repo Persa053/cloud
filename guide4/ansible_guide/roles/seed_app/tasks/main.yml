@@ -1,0 +1,6 @@
+- name: Execute a command
+  kubernetes.core.k8s_exec:
+    namespace: default
+    pod: swap-deployment
+    command: php artisan db:seed
+  when: seed

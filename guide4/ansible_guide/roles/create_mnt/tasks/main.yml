@@ -1,0 +1,5 @@
+---
+- name: Create mnt/data/ directory
+  file:
+    path: /mnt/data
+    state: directory

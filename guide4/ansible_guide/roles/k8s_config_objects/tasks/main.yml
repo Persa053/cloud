@@ -1,0 +1,22 @@
+---
+- name: Install pip
+  become: yes
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Install pip dependencies for k8s module
+  pip:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ pip_dependencies }}"
+
+- name: Create Password Secret
+  kubernetes.core.k8s:
+    state: present
+    template: secrets.yml
+
+- name: Create ConfigMap Secret
+  kubernetes.core.k8s:
+    state: present
+    template: config.yml

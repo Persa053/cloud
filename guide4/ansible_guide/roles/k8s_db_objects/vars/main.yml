@@ -1,0 +1,9 @@
+# Storage settings:
+# Storage Class name
+sc_name: local-storage
+
+# MySQL PVC settings
+pvc_name: mysql-pv-claim
+
+# MySQL deployment name
+deploy_name: mysql-deployment

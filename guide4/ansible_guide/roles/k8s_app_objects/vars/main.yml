@@ -1,0 +1,6 @@
+# Swap settings
+# Swap deployment name
+deploy_name: swap-deployment
+
+# Swap deployment name
+service_name: swap-service

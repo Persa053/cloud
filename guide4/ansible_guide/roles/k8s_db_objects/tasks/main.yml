@@ -1,0 +1,20 @@
+---
+- name: Create Storage Class and Persistent Volume
+  kubernetes.core.k8s:
+    state: present
+    template: persistent-volume.yml
+
+- name: Create Persistent Volume Claim
+  kubernetes.core.k8s:
+    state: present
+    template: mysql-pvc.yml
+
+- name: Create MySQL deployment
+  kubernetes.core.k8s:
+    state: present
+    template: mysql-deployment.yml
+
+- name: Create MySQL service
+  kubernetes.core.k8s:
+    state: present
+    template: mysql-service.yml

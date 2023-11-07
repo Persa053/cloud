@@ -1,0 +1,19 @@
+---
+- name: Create /mnt/data
+  become: yes
+  hosts: workers
+
+  roles:
+    - create_mnt
+
+- name: Install swap on K8s
+  hosts: master
+
+  roles:
+    - k8s_config_objects
+    - k8s_db_objects
+    - k8s_app_objects
+
+# ansible-galaxy collection install kubernetes.core
+# pip install openshift pyyaml kubernetes
+# ou mudar ansible.cfg
